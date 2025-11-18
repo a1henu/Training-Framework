@@ -1,0 +1,80 @@
+experiment:
+  name: "debug_run"
+  output_dir: "outputs/debug_run"
+
+seed: 42
+
+device: "cuda"  # "cuda" or "cpu"
+
+model:
+  name: "your_model_name"        # Registered in MODEL_REGISTRY
+  params:
+    # __init__ params for your model, e.g.:
+    # hidden_dim: 128
+    # num_layers: 3
+    # ...
+
+data:
+  datamodule:
+    name: "your_datamodule_name" # Registered in DATAMODULE_REGISTRY
+    params:
+      # params for your datamodule, e.g.:
+      # train_dir: "path/to/train"
+      # val_dir: "path/to/val"
+      # image_size: 256
+      # ...
+
+  loader:
+    batch_size: 32
+    num_workers: 4
+    pin_memory: true
+    shuffle: true
+
+trainer:
+  max_epochs: 100                # Max epochs to train
+  val_every_n_epochs: 1          # Validate every n epochs
+  ckpt_every_n_epochs: 1         # Checkpoint every n epochs
+  gradient_clip_norm: null       # e.g., 5.0; null means no clipping
+  mixed_precision: false         # Whether to use AMP
+  resume_ckpt: null              # e.g., "path/to/ckpt.pth"
+  log_every_n_steps: 50          # Log every n steps during training
+
+checkpoint:
+  monitor: "val/loss"
+  mode: "min"
+  filename: "best.ckpt"          # best model will always be saved here
+
+
+optimizer:
+  name: "adamw"                  # Adam, AdamW, SGD, etc.
+  lr: 1e-3
+  weight_decay: 0.0
+  # momentum: 0.9                # For optimizers like SGD 
+
+scheduler:
+  name: null                     # "steplr" or "cosine", null means no scheduler
+  params:
+    step_size: 30
+    gamma: 0.1
+
+loss:
+  name: null                     # e.g., "cross_entropy", null means no custom loss
+  params: {}
+
+early_stopping:
+  enabled: false
+  monitor: "val/loss"
+  mode: "min"                    # "min" or "max"
+  patience: 10
+  min_delta: 0.0
+
+checkpoint:
+  monitor: "val/loss"
+  mode: "min"
+  filename: "best.ckpt"          # best model will always be saved here
+
+wandb:
+  project: "my_project"
+  entity: null
+  mode: "online"                 # "online", "offline", "disabled"
+  name: null                     # default: experiment.name
