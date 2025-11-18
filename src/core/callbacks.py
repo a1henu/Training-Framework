@@ -1,28 +1,30 @@
 # src/core/callbacks.py
 from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, TYPE_CHECKING
 
 from .utils import save_checkpoint
 
+if TYPE_CHECKING:
+    from .trainer import Trainer
 
 class Callback:
-    def on_train_start(self, trainer: "Trainer") -> None:
+    def on_train_start(self, trainer: Trainer) -> None:
         pass
 
-    def on_train_end(self, trainer: "Trainer") -> None:
+    def on_train_end(self, trainer: Trainer) -> None:
         pass
 
-    def on_train_epoch_start(self, trainer: "Trainer", epoch: int) -> None:
+    def on_train_epoch_start(self, trainer: Trainer, epoch: int) -> None:
         pass
 
-    def on_train_epoch_end(self, trainer: "Trainer", epoch: int, logs: Dict[str, Any]) -> None:
+    def on_train_epoch_end(self, trainer: Trainer, epoch: int, logs: Dict[str, Any]) -> None:
         pass
 
-    def on_validation_epoch_end(self, trainer: "Trainer", epoch: int, logs: Dict[str, Any]) -> None:
+    def on_validation_epoch_end(self, trainer: Trainer, epoch: int, logs: Dict[str, Any]) -> None:
         pass
-
 
 @dataclass
 class EarlyStopping(Callback):

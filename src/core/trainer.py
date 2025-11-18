@@ -11,7 +11,6 @@ from .utils import move_to_device
 from .callbacks import Callback
 from .logger import WandbLogger
 
-
 class Trainer:
     """
     Generic Trainer:

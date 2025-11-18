@@ -5,7 +5,6 @@ from typing import Any, Dict
 import torch
 import torch.nn as nn
 
-
 class BaseLoss(nn.Module):
     """
     Base class for custom losses.

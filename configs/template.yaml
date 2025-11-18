@@ -74,7 +74,8 @@ checkpoint:
   filename: "best.ckpt"          # best model will always be saved here
 
 wandb:
-  project: "my_project"
-  entity: null
-  mode: "online"                 # "online", "offline", "disabled"
-  name: null                     # default: experiment.name
+  project: "your_project_name"   # Your wandb project name
+  entity: "your_username"        # Your wandb username or team name
+  mode: "online"                 # "online", "offline", or "disabled"
+  name: "your_experiment_name"   # Name of the wandb run 
+
